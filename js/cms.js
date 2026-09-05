@@ -20,8 +20,8 @@
 // ============================================================
 (function () {
   var CMS_CONFIG = {
-    serviceId: '',   // 例: 'aile-salon'  → https://aile-salon.microcms.io
-    apiKey: ''       // 読み取り専用(GET)のAPIキー
+    serviceId: 'aile-salon',                        // https://aile-salon.microcms.io
+    apiKey: 'SMfb1mpQzjL7sOi1cZ0QBovI44KHtiGmhMqA'  // 読み取り専用(GET)のAPIキー
   };
 
   // 動作確認用: URL に ?cms=mock を付けると cms-mock/*.json を読む
