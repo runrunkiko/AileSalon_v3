@@ -50,7 +50,10 @@
   function imageUrl(image, width) {
     if (!image || typeof image.url !== 'string') { return null; }
     var url = image.url;
-    if (MOCK && /^img\//.test(url)) { return url; } // ローカル確認用
+    if (MOCK && /^img\//.test(url)) {
+      // ローカル確認用。CSS変数経由だと相対パスがCSSファイル基準になるため絶対URLにする
+      return new URL(url, location.href).href;
+    }
     if (url.indexOf(IMAGE_HOST) !== 0) { return null; }
     return url + '?w=' + width + '&q=75&fm=webp';
   }
