@@ -1,7 +1,7 @@
 {
   "contents": [
     { "id": "t1", "order": 1, "image": { "url": "img/fv1.jpg" } },
-    { "id": "t2", "order": 2, "image": { "url": "img/fv2.jpg" } },
+    { "id": "t2", "order": 2, "image": { "url": "img/fv2.jpg" }, "image_sp": { "url": "img/fv2_sp.jpg" } },
     { "id": "t3", "order": 3, "image": { "url": "img/fv3_h_new.jpg" } },
     { "id": "t4", "order": 4, "image": { "url": "img/fv4.jpg" } },
     { "id": "t5", "order": 5, "image": { "url": "img/fv5.jpg" } },

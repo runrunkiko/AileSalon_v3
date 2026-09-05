@@ -97,9 +97,13 @@
       var url = imageUrl(item.image, 1200);
       if (!url) { return; }
       var slide = el('div', 'slide');
-      slide.style.backgroundImage = 'url("' + url + '")';
-      slide.style.backgroundSize = 'cover';
-      slide.style.backgroundPosition = 'center center';
+      // PC用とスマホ用をCSS変数で渡し、切り替えは style.css の @media 側で行う
+      slide.style.setProperty('--img-pc', 'url("' + url + '")');
+      var spUrl = imageUrl(item.image_sp, 1000);
+      if (spUrl) {
+        slide.style.setProperty('--img-sp', 'url("' + spUrl + '")');
+      }
+      slide.className = 'slide slide-cms';
       slides.push(slide);
     });
     if (!slides.length) { return; }

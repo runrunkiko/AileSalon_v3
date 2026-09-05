@@ -101,6 +101,11 @@ body{
     background: url(../img/fv5.jpg) no-repeat center center;
     background-size: cover;
 }
+/* microCMS から来たスライド。PC用画像を表示し、スマホ用があれば @media 側で差し替える */
+.slide-cms{
+    background: var(--img-pc) no-repeat center center;
+    background-size: cover;
+}
 
 /*  nav
 --------------------------------*/
@@ -984,6 +989,10 @@ h3{
     .slide5{
         width: 20%;
         background: url(../img/fv5.jpg) no-repeat center center;
+        background-size: cover;
+    }
+    .slide-cms{
+        background: var(--img-sp, var(--img-pc)) no-repeat center center;
         background-size: cover;
     }
     /*  fv-wrap
