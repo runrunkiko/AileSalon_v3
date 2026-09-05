@@ -556,61 +556,29 @@ h3{
     background: transparent linear-gradient(180deg,#FFFFFF1C 5%, #EEB19333 15%, #F5BEA25D 23%, #FCE3D2A8 44%, #B1CDC05A 64%, #61B7BD55 100%) 0% 0% no-repeat padding-box;
     padding: 5% 0 10% 0;
 }
-/* 吹き出し（雲形はSVGの線、文言はテキスト） */
-.voice{
-    position: relative;
-    width: 60%;
-    margin: 0;
-}
 .voice1{
+    width: 60%;
     margin-left: 5%;
     margin-top: 2%;
 }
+.voice1 > img{
+    width: 100%;
+}
 .voice2{
+    width: 60%;
     margin-left: auto;
     margin-top: -6%;
 }
+.voice2 > img{
+    width: 100%;
+}
 .voice3{
+    width: 60%;
     margin-left: 5%;
     margin-top: -6%;
 }
-.voice-bubble{
-    position: absolute;
-    top: 0;
-    left: 0;
+.voice3 > img{
     width: 100%;
-    height: 100%;
-    overflow: visible;
-    fill: #fff;
-    stroke: #6b6b6b;
-    stroke-width: 4px;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-    vector-effect: non-scaling-stroke;
-}
-.voice-bubble use{
-    vector-effect: non-scaling-stroke;
-}
-.voice-body{
-    position: relative;
-    /* 雲の凹みは場所によって外周から最大 20% ほど内側に入るので、
-       文字ブロックが雲の内側の楕円に収まる余白にしておく（下はしっぽ分も） */
-    padding: 19% 19% 24% 19%;
-    text-align: center;
-}
-.voice-body p{
-    color: #5A5A5A;
-    font-size: clamp(13px, 1.15vw, 22px);
-    line-height: 2.2;
-}
-.voice-body cite{
-    display: block;
-    margin-top: 0.8em;
-    padding-right: 10%;
-    text-align: right;
-    font-style: normal;
-    color: #5A5A5A;
-    font-size: clamp(12px, 1.05vw, 20px);
 }
 /*  staff-area
 --------------------------------*/
@@ -1367,23 +1335,20 @@ h3{
     }
     /*  voice-area
     --------------------------------*/
-    .voice{
-        width: 92%;
-        margin: 8% auto 0 auto;
+    .voice1{
+        width: 95%;
+        margin-left: 2%;
+        margin-top: 6%;
     }
-    .voice-body{
-        /* SPは吹き出しが縦長になる。padding の % は幅基準なので上下を多めに */
-        padding: 27% 21% 34% 21%;
+    .voice2{
+        width: 95%;
+        margin-left: auto;
+        margin-top: 6%;
     }
-    .voice-body p{
-        font-size: 12px;
-        line-height: 1.9;
-    }
-    .voice-body p br{
-        display: none;
-    }
-    .voice-body cite{
-        font-size: 11px;
+    .voice3{
+        width: 95%;
+        margin-left: 2%;
+        margin-top: 6%;
     }
     /*  staff-area
     --------------------------------*/
