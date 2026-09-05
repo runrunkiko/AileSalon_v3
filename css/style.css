@@ -657,6 +657,60 @@ h3{
   flex-direction: row-reverse;
 }
 
+/* greeting（代表あいさつ） */
+.greeting{
+    width: 80%;
+    margin: 5% auto 0 auto;
+    display: flex;
+    align-items: flex-start;
+    gap: 6%;
+}
+.greeting-profile{
+    width: 30%;
+    flex-shrink: 0;
+}
+.greeting-profile figure{
+    width: 100%;
+}
+.greeting-profile figure img{
+    width: 100%;
+    display: block;
+}
+.greeting-name{
+    margin-top: 6%;
+    padding: 5% 0;
+    text-align: center;
+    color: #fff;
+    font-weight: bold;
+    font-size: 1.15vw;
+    line-height: 1.7;
+    background: transparent linear-gradient(52deg, #6CC6CBEA 0%, #BABABA 58%, #F2A681E5 100%) 0% 0% no-repeat padding-box;
+}
+.greeting-message{
+    flex: 1;
+    min-width: 0;
+}
+.greeting-message p{
+    color: #707070;
+    font-size: 1.5vw;
+    line-height: 2.1;
+    font-weight: bold;
+    margin-bottom: 1.6em;
+}
+.greeting-message p:last-child{
+    margin-bottom: 0;
+}
+.greeting-experience{
+    margin-top: 10%;
+    color: #707070;
+    font-size: 0.95vw;
+    line-height: 1.9;
+    font-weight: lighter;
+}
+.greeting-experience > span{
+    font-weight: bold;
+}
+
 /* message-wrap */
 .message-wrap{
     width: 85%;
@@ -1062,6 +1116,24 @@ h5{
     .message > .experience{
         border-radius: 20px;
     }
+    /* greeting（代表あいさつ） */
+    .greeting{
+        width: 85%;
+        gap: 5%;
+    }
+    .greeting-profile{
+        width: 32%;
+    }
+    .greeting-name{
+        font-size: 14px;
+    }
+    .greeting-message p{
+        font-size: 16px;
+        line-height: 2;
+    }
+    .greeting-experience{
+        font-size: 12px;
+    }
 
 }
 
@@ -1417,6 +1489,46 @@ h5{
         font-size: 2.2vw;
         width: 100%;
         margin: 5% 0;
+    }
+    /* greeting（代表あいさつ） */
+    .greeting{
+        width: 85%;
+        margin-top: 12%;
+        display: flex;
+        flex-direction: column;
+    }
+    /* 子要素を直接並べ替えるため、2カラムの枠は解除 */
+    .greeting-profile,
+    .greeting-message{
+        display: contents;
+    }
+    .greeting-profile figure{
+        order: 0;
+        width: 75%;
+        margin: 0 auto;
+    }
+    .greeting-name{
+        order: 1;
+        width: 75%;
+        margin: 5% auto 12% auto;
+        font-size: 14px;
+        padding: 4% 0;
+    }
+    .greeting-message p{
+        order: 2;
+        font-size: 14px;
+        line-height: 1.9;
+        font-weight: normal;
+        color: #555;
+        margin-bottom: 1.4em;
+    }
+    .greeting-message p br{
+        display: none;
+    }
+    .greeting-experience{
+        order: 3;
+        font-size: 12px;
+        margin-top: 1.5em;
     }
     /*  access-area
     --------------------------------*/
