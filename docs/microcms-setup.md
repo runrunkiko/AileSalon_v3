@@ -87,6 +87,25 @@ var CMS_CONFIG = {
 - 写真は microCMS 側で自動的にリサイズ・軽量化（WebP）されて配信されます。元の大きさのままアップロードして構いません。
 - 1つのAPIにつき最大100件まで読み込みます。
 
+## 5-2. 画面プレビュー（下書きを公開前に確認する）
+
+無料プランでも使えます。各APIの設定で「画面プレビュー」のURLを登録すると、
+コンテンツ編集画面の「プレビュー」ボタンから、下書きの内容を差し込んだサイトを開けます。
+
+各APIの「API設定」→「画面プレビュー」に、次のURLを登録（`top` の部分はAPIごとに変える）:
+
+| API | プレビューURL |
+|---|---|
+| top | `https://aile-personalbodycaresalon.com/?preview=top&id={CONTENT_ID}&draftKey={DRAFT_KEY}` |
+| about | `https://aile-personalbodycaresalon.com/?preview=about&id={CONTENT_ID}&draftKey={DRAFT_KEY}` |
+| course | `https://aile-personalbodycaresalon.com/?preview=course&id={CONTENT_ID}&draftKey={DRAFT_KEY}` |
+| photo | `https://aile-personalbodycaresalon.com/?preview=photo&id={CONTENT_ID}&draftKey={DRAFT_KEY}` |
+
+`{CONTENT_ID}` と `{DRAFT_KEY}` はそのまま書く（microCMS が置き換える）。
+本番アップロード前にローカルで試す場合は、先頭を `http://127.0.0.1:8765/index.html` にする。
+
+プレビューで開いたページは、画面下にオレンジの帯「プレビュー表示中」が出る。
+
 ## 6. ローカルでの動作確認
 
 サーバーを立てて `?cms=mock` を付けて開くと、`cms-mock/*.json` の内容で差し替え動作を確認できます。

@@ -27,6 +27,19 @@
   // 動作確認用: URL に ?cms=mock を付けると cms-mock/*.json を読む
   var MOCK = /[?&]cms=mock(&|$)/.test(location.search);
 
+  // 画面プレビュー（microCMS の「プレビュー」ボタンから開かれる）
+  //   ?preview=<API名>&id=<コンテンツID>&draftKey=<下書きキー>
+  // 指定されたコンテンツだけ下書きの内容で差し込んで表示する。
+  var PREVIEW = (function () {
+    var q = {};
+    location.search.replace(/^\?/, '').split('&').forEach(function (kv) {
+      var p = kv.split('=');
+      if (p[0]) { q[decodeURIComponent(p[0])] = decodeURIComponent(p[1] || ''); }
+    });
+    if (q.preview && q.id) { return { api: q.preview, id: q.id, draftKey: q.draftKey || '' }; }
+    return null;
+  })();
+
   var IMAGE_HOST = 'https://images.microcms-assets.io/';
 
   // ---------- ユーティリティ ----------
@@ -72,21 +85,52 @@
     return oa - ob;
   }
 
-  function fetchList(api) {
-    var url, opts = {};
-    if (MOCK) {
-      url = 'cms-mock/' + api + '.json';
-    } else {
-      url = 'https://' + CMS_CONFIG.serviceId + '.microcms.io/api/v1/' + api + '?limit=100';
-      opts.headers = { 'X-MICROCMS-API-KEY': CMS_CONFIG.apiKey };
-    }
+  function apiUrl(path, query) {
+    if (MOCK) { return 'cms-mock/' + path + '.json'; }
+    return 'https://' + CMS_CONFIG.serviceId + '.microcms.io/api/v1/' + path + (query || '');
+  }
+
+  function fetchJson(url) {
+    var opts = MOCK ? {} : { headers: { 'X-MICROCMS-API-KEY': CMS_CONFIG.apiKey } };
     return fetch(url, opts).then(function (res) {
-      if (!res.ok) { throw new Error(api + ': HTTP ' + res.status); }
+      if (!res.ok) { throw new Error(url + ': HTTP ' + res.status); }
       return res.json();
-    }).then(function (json) {
-      var list = Array.isArray(json.contents) ? json.contents.slice() : [];
-      return list.sort(byOrder);
     });
+  }
+
+  function fetchList(api) {
+    return fetchJson(apiUrl(api, '?limit=100')).then(function (json) {
+      var list = Array.isArray(json.contents) ? json.contents.slice() : [];
+      if (!(PREVIEW && PREVIEW.api === api)) { return list.sort(byOrder); }
+
+      // プレビュー: 対象コンテンツを下書きの内容で取得し、同じIDがあれば置き換え、無ければ追加
+      var draftUrl = MOCK
+        ? apiUrl(api + '_' + PREVIEW.id)
+        : apiUrl(api + '/' + PREVIEW.id, PREVIEW.draftKey ? '?draftKey=' + encodeURIComponent(PREVIEW.draftKey) : '');
+      return fetchJson(draftUrl).then(function (draft) {
+        var replaced = false;
+        list = list.map(function (item) {
+          if (item.id === draft.id) { replaced = true; return draft; }
+          return item;
+        });
+        if (!replaced) { list.push(draft); }
+        showPreviewBanner();
+        return list.sort(byOrder);
+      }, function (err) {
+        console.warn('[cms] preview: ' + err.message);
+        return list.sort(byOrder);
+      });
+    });
+  }
+
+  function showPreviewBanner() {
+    if (document.getElementById('cmsPreviewBanner')) { return; }
+    var b = el('div');
+    b.id = 'cmsPreviewBanner';
+    b.textContent = 'プレビュー表示中（下書きの内容を含みます。公開するまでサイトには反映されません）';
+    b.style.cssText = 'position:fixed;left:0;right:0;bottom:0;z-index:20000;background:#F7A47B;color:#fff;' +
+      'font-size:13px;font-weight:bold;text-align:center;padding:10px 16px;box-shadow:0 -2px 8px rgba(0,0,0,.15);';
+    document.body.appendChild(b);
   }
 
   // ---------- 各セクションの描画 ----------
@@ -241,6 +285,12 @@
             catch (e) { console.warn('[cms] render ' + sections[i].api, e); }
           }
         });
+        // プレビュー時は該当セクションまでスクロールしておく
+        if (PREVIEW) {
+          var target = { top: '#slideContents', about: '#aboutArea', course: '#courseArea', photo: '#photoArea' }[PREVIEW.api];
+          var node = target && document.querySelector(target);
+          if (node) { setTimeout(function () { node.scrollIntoView(); }, 1500); }
+        }
       });
     }).then(resolve, resolve);
   });
