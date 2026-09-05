@@ -92,7 +92,11 @@ IMAGE_FIELDS = ("image", "image_sp")
 # HTTP まわり
 # ---------------------------------------------------------------
 def request(method, url, key, body=None, content_type=None):
-    headers = {"X-MICROCMS-API-KEY": key}
+    headers = {
+        "X-MICROCMS-API-KEY": key,
+        # Python 標準の User-Agent は Cloudflare に弾かれる（403 error code 1010）ため明示する
+        "User-Agent": "Mozilla/5.0 (Macintosh) aile-import/1.0",
+    }
     if content_type:
         headers["Content-Type"] = content_type
     req = urllib.request.Request(url, data=body, method=method, headers=headers)
