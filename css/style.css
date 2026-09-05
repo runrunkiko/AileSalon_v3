@@ -556,29 +556,61 @@ h3{
     background: transparent linear-gradient(180deg,#FFFFFF1C 5%, #EEB19333 15%, #F5BEA25D 23%, #FCE3D2A8 44%, #B1CDC05A 64%, #61B7BD55 100%) 0% 0% no-repeat padding-box;
     padding: 5% 0 10% 0;
 }
-.voice1{
+/* 吹き出し（雲形はSVGの線、文言はテキスト） */
+.voice{
+    position: relative;
     width: 60%;
+    margin: 0;
+}
+.voice1{
     margin-left: 5%;
     margin-top: 2%;
 }
-.voice1 > img{
-    width: 100%;
-}
 .voice2{
-    width: 60%;
     margin-left: auto;
     margin-top: -6%;
 }
-.voice2 > img{
-    width: 100%;
-}
 .voice3{
-    width: 60%;
     margin-left: 5%;
     margin-top: -6%;
 }
-.voice3 > img{
+.voice-bubble{
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
+    height: 100%;
+    overflow: visible;
+    fill: rgba(255, 255, 255, 0.25);
+    stroke: #6b6b6b;
+    stroke-width: 4px;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    /* 手描き風に線を途切れさせる */
+    stroke-dasharray: 230 26;
+    vector-effect: non-scaling-stroke;
+}
+.voice-bubble use{
+    vector-effect: non-scaling-stroke;
+}
+.voice-body{
+    position: relative;
+    padding: 16% 13% 19% 13%;
+    text-align: center;
+}
+.voice-body p{
+    color: #5A5A5A;
+    font-size: clamp(13px, 1.15vw, 22px);
+    line-height: 2.2;
+}
+.voice-body cite{
+    display: block;
+    margin-top: 0.8em;
+    padding-right: 6%;
+    text-align: right;
+    font-style: normal;
+    color: #5A5A5A;
+    font-size: clamp(12px, 1.05vw, 20px);
 }
 /*  staff-area
 --------------------------------*/
@@ -1335,20 +1367,22 @@ h3{
     }
     /*  voice-area
     --------------------------------*/
-    .voice1{
-        width: 95%;
-        margin-left: 2%;
-        margin-top: 6%;
+    .voice{
+        width: 92%;
+        margin: 8% auto 0 auto;
     }
-    .voice2{
-        width: 95%;
-        margin-left: auto;
-        margin-top: 6%;
+    .voice-body{
+        padding: 16% 14% 19% 14%;
     }
-    .voice3{
-        width: 95%;
-        margin-left: 2%;
-        margin-top: 6%;
+    .voice-body p{
+        font-size: 12px;
+        line-height: 1.9;
+    }
+    .voice-body p br{
+        display: none;
+    }
+    .voice-body cite{
+        font-size: 11px;
     }
     /*  staff-area
     --------------------------------*/
