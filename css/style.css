@@ -708,6 +708,8 @@ h3{
 --------------------------------*/
 .reservation-area{
     background: transparent linear-gradient(159deg, #6CC6CBBF 0%, #EEB1939B 100%) 0% 0% no-repeat padding-box;
+    /* iPhone のホームインジケーター領域（セーフエリア）まで背景を伸ばし、白い帯が出ないようにする */
+    padding-bottom: env(safe-area-inset-bottom, 0px);
 }
 .ttl-wrap-reserve{
     width: 100%;
@@ -1144,7 +1146,8 @@ h3{
         position: fixed;
         width: 125px;
         height: 125px;
-        bottom: 5px;
+        /* ホームインジケーターにかぶらないよう、セーフエリア分だけ上げる */
+        bottom: calc(5px + env(safe-area-inset-bottom, 0px));
         left: 10px;
         z-index: 100;
     }
