@@ -6,7 +6,11 @@ body{
   font-family: "游ゴシック体", YuGothic, "游ゴシック Medium", "Yu Gothic Medium", "游ゴシック", "Yu Gothic", sans-serif;
 }
 .wrap{
+    /* 装飾のブラー円（.v6 の right:-30px など）とトップのスライドが
+       横にはみ出して横スクロールが出るのを防ぐ。
+       clip は hidden と違いスクロール領域を作らないので副作用が少ない。 */
     overflow: hidden;
+    overflow: clip;
     position: relative;
 }
 .ttl-wrap{
@@ -16,7 +20,7 @@ body{
 }
 .ttl{
     font-weight: bold;
-    font-size: 5vw;
+    font-size: clamp(30px, 5vw, 96px);
     background: transparent linear-gradient(54deg, #6CC6CBCB 0%, #C4C4C4 58%, #F2A681CB 100%) 0% 0% no-repeat padding-box;
     background-clip: text;
     -webkit-background-clip: text;
@@ -24,7 +28,7 @@ body{
     opacity: 1;
 }
 .sub-ttl{
-    font-size: 2vw;
+    font-size: clamp(14px, 2vw, 38px);
     font-weight: bold;
     color: #5A5A5A;
     opacity: 0.8;
@@ -44,11 +48,9 @@ body{
     height: 100%;
     background: #fff;
     display: flex;
-    flex-direction: center;
     justify-content: center;
     align-items: center;
     z-index: 10002;
-    /* display: none; */
 }
 /*  header
 --------------------------------*/
@@ -88,8 +90,6 @@ body{
     width: 25%;
     background: url(../img/fv3_h_new.jpg) no-repeat center center;
     background-size: cover;
-    object-fit: cover;
-    object-position: 100% 100%;
 }
 .slide4{
     width: 50%;
@@ -98,7 +98,6 @@ body{
 }
 .slide5{
     width: 20%;
-    height: 100vh;
     background: url(../img/fv5.png) no-repeat center center;
     background-size: cover;
 }
@@ -135,7 +134,10 @@ h1 img{
     font-weight: bold;
     font-size: 1.54vw;
     color: #707070;
-    transition: .4s;
+    /* ホバー時に padding を変えると隣のメニューが動くので、余白は常時確保しておく */
+    padding: 0.45em 0.8em;
+    border-radius: 8px;
+    transition: background .4s, color .4s;
 }
 .sns_icon img{
     display: none;
@@ -144,14 +146,11 @@ h1 img{
 .nav-list li a:hover {
     background: transparent linear-gradient(41deg, #6CC6CBE5 0%, #EEB193E6 100%) 0% 0% no-repeat padding-box;
     color: #fff;
-    padding: 15%;
-    border-radius: 8px;
-    }
+}
 
 /*  fv-wrap
 --------------------------------*/
 .fv-wrap{
-    /* display: none; */
     position: relative;
 }
 .fv-lead{
@@ -194,7 +193,7 @@ h1 img{
     text-align: center;
     display: block;
     margin-bottom: 35px;
-    font-size: 1.3vw;
+    font-size: clamp(15px, 1.3vw, 25px);
 }
 .dog1{
     width: 100%;
@@ -334,7 +333,7 @@ h1 img{
     padding: 4% 6% 4% 6%;
 }
 h2{
-    font-size: 1.6vw;
+    font-size: clamp(16px, 1.6vw, 31px);
     line-height: 2.2;
     font-weight: bold;
     text-align: center;
@@ -346,9 +345,10 @@ h2{
 }
 .about-article p{
     width: 100%;
-    height: 120px;
+    /* 固定 height だと文章量が増えたときにはみ出すので min-height に */
+    min-height: 120px;
     margin-top: 1.5%;
-    font-size: 1.4vw;
+    font-size: clamp(14px, 1.4vw, 27px);
     line-height: 2.2;
     text-align: center;
 }
@@ -362,11 +362,13 @@ h2{
     width: 80%;
     display: flex;
     flex-wrap: wrap;
+    align-items: stretch;
     margin: 3% auto;
 }
 .course-box{
     width: 35vw;
-    height: 32vw;
+    /* 固定 height だと文章量で溢れるので、最低高さだけ揃えて中身に合わせて伸ばす */
+    min-height: 32vw;
     border-radius: 71px;
     border: 0.5px solid #707070;
     box-shadow: 15px 15px 2px 1px rgba(238, 177, 147);
@@ -375,24 +377,23 @@ h2{
     padding: 5% 4%;
 }
 h3{
-    font-size: 2.3vw;
+    font-size: clamp(18px, 2.3vw, 44px);
     font-weight: bold;
     color: #6888AB;
     margin-bottom: 5%;
 }
 .course-box > p{
     line-height: 2.5;
-    font-size: 1.4vw;
-    align-items: center;
+    font-size: clamp(13px, 1.4vw, 27px);
     margin-bottom: 2%;
 }
 .price{
-    font-size: 2.5vw;
+    font-size: clamp(18px, 2.5vw, 48px);
     font-weight: bold;
     color: #6888AB;
 }
 .course-area > p{
-    font-size: 1.5vw;
+    font-size: clamp(13px, 1.5vw, 29px);
     color: #6888AB;
     font-weight: bold;
     text-align: right;
@@ -592,71 +593,6 @@ h3{
     margin-top: 7%;
     padding-top: 7%;
 }
-.staff-list{
-    width: 75%;
-    margin: 0 auto;
-}
-.staff{
-    display: flex;
-    justify-content: space-between;
-    margin: 6% 0;
-}
-.staff-thumbnail figure{
-    width: 25vw;
-    height: auto;
-}
-.staff-thumbnail figure img{
-    width: 100%;
-}
-.staff-box p{
-    margin-top: 25%;
-    line-height: 2.2;
-    font-size: 1.4vw;
-}
-.staff-box p span{
-    font-size: 1vw;
-}
-.staff-box1{
-    position: relative;
-    width: 50%;
-}
-.staff-box1 > h4{
-    position: absolute;
-    width: 70%;
-    z-index: 2;
-    text-align: center;
-    color: #fff;
-    background: transparent linear-gradient(52deg, #6CC6CBEA 0%, #BABABA 58%, #F2A681E5 100%) 0% 0% no-repeat padding-box;
-    font-weight: bold;
-    padding: 4% 0;
-    font-size: 1.5vw;
-    top: 8%;
-    left: -30%;
-}
-.staff-box2{
-    position: relative;
-    width: 50%;
-}
-.staff-box2 > h4{
-    position: absolute;
-    width: 70%;
-    z-index: 2;
-    text-align: center;
-    color: #fff;
-    background: transparent linear-gradient(52deg, #6CC6CBEA 0%, #BABABA 58%, #F2A681E5 100%) 0% 0% no-repeat padding-box;
-    font-weight: bold;
-    padding: 4% 0;
-    font-size: 1.5vw;
-    top: 8%;
-    left: 60%;
-}
-.staff-box-pink h4{
-    background: transparent linear-gradient(52deg, #6CC6CBEA 0%, #E0BDBD 58%, #E2B9B9 100%) 0% 0% no-repeat padding-box;
-}
-.staff:nth-child(even) {
-  flex-direction: row-reverse;
-}
-
 /* greeting（代表あいさつ） */
 .greeting{
     width: 80%;
@@ -711,40 +647,6 @@ h3{
     font-weight: bold;
 }
 
-/* message-wrap */
-.message-wrap{
-    width: 85%;
-    margin: 7% auto 3% auto;
-}
-.message_border{
-    width: 100%;
-    height: 7px;
-    background: #61B7BD;
-    margin-top: 5%;
-}
-h5{
-    padding: 6% 4%;
-    color: #61B7BD;
-    font-weight: bold;
-    font-size: 2.3vw;
-}
-.message p{
-    color: #707070;
-    font-size: 1.3vw;
-    padding: 2% 4%;
-    line-height: 2.1;
-    font-weight: bold;
-}
-.message > .experience > span{
-    font-weight: bold;
-}
-.message > .experience{
-    font-size: 1.2vw;
-    font-weight: lighter;
-    color: #707070;
-    width: 70%;
-    border-radius: 30px;
-}
 /*  access-area
 --------------------------------*/
 .map-wrap{
@@ -764,22 +666,21 @@ h5{
 }
 .adress p{
     line-height: 1.5;
-    font-size: 1.4vw;
+    font-size: clamp(13px, 1.4vw, 27px);
     padding: 2% 0;
 }
 .moving{
     font-weight: bolder;
 }
 .map-btn{
-    width: 85%;
+    width: 20vw;
     border-radius: 41px;
     background: #61B7BD 0% 0% no-repeat padding-box;
     box-shadow: 10px 10px 10px #00000029;
     padding: 4% 1%;
     text-align: center;
     margin-top: 3%;
-    width: 20vw;
-    font-size: 1.3vw;
+    font-size: clamp(13px, 1.3vw, 25px);
 }
 .map-btn > a{
     text-decoration: none;
@@ -797,7 +698,7 @@ h5{
 }
 .ttl-reserve{
     font-weight: bold;
-    font-size: 5vw;
+    font-size: clamp(30px, 5vw, 96px);
     background: #fff;
     background-clip: text;
     -webkit-background-clip: text;
@@ -805,7 +706,7 @@ h5{
     opacity: 1;
 }
 .sub-ttl-reserve{
-    font-size: 2vw;
+    font-size: clamp(14px, 2vw, 38px);
     font-weight: bold;
     color: #fff;
     opacity: 1;
@@ -823,7 +724,7 @@ h5{
     color: #5A5A5A;
     line-height: 2;
     font-weight: bold;
-    font-size: 1.6vw;
+    font-size: clamp(14px, 1.6vw, 31px);
 }
 .reservation-wrap span{
     font-weight: normal;
@@ -845,15 +746,14 @@ h5{
     text-decoration: none;
 }
 .web-btn{
-    width: 100%;
+    width: 28vw;
     border-radius: 50px;
     background: #F7A47B 0% 0% no-repeat padding-box;
     box-shadow: 10px 10px 10px #00000029;
     padding: 4% 4%;
     text-align: center;
     margin: 6% auto 6% auto;
-    width: 28vw;
-    font-size: 1.5vw;
+    font-size: clamp(14px, 1.5vw, 29px);
     transition: .2s;
     border: solid 2px #F7A47B;
 }
@@ -863,18 +763,16 @@ h5{
     font-weight: bold;
 }
 .line-btn{
-    width: 100%;
+    width: 28vw;
     border-radius: 50px;
     background: #04A370 0% 0% no-repeat padding-box;
     box-shadow: 10px 10px 10px #00000029;
     padding: 4% 4%;
     text-align: center;
     margin: 6% auto 6% auto;
-    width: 28vw;
-    font-size: 1.5vw;
+    font-size: clamp(14px, 1.5vw, 29px);
     border: solid 2px #04A370;
     transition: .2s;
-
 }
 .line-btn> a{
     text-decoration: none;
@@ -909,7 +807,7 @@ h5{
 .Copyright{
     text-align: right;
     color: #fff;
-    font-size: 1.4vw;
+    font-size: clamp(12px, 1.4vw, 27px);
     padding: 2% 4% 5% 0;
 }
 
@@ -968,7 +866,7 @@ h5{
         transform: translateY(12px) rotate(-45deg);
     }
     .menu-button.active span:nth-of-type(2){
-        opacity: 0;;
+        opacity: 0;
     }
     .menu-button.active span:nth-of-type(3){
         top: 0;
@@ -1041,10 +939,6 @@ h5{
         height: auto;
         margin: 15px 10px 15px 10px;
     }
-    /* ホバー時 */
-    .nav-list li a:hover {
-        padding: 1.5%;
-    }
 
     /*  fv-wrap
     --------------------------------*/
@@ -1068,8 +962,6 @@ h5{
         width: 25%;
         background: url(../img/fv3_h_new.jpg) no-repeat center center;
         background-size: cover;
-        object-fit: cover;
-        object-position: 100% 100%;
     }
     .slide4{
         width: 50%;
@@ -1112,10 +1004,6 @@ h5{
         margin-bottom: 35px;
         font-size: 18px;
     }
-    /* message-wrap */
-    .message > .experience{
-        border-radius: 20px;
-    }
     /* greeting（代表あいさつ） */
     .greeting{
         width: 85%;
@@ -1137,6 +1025,70 @@ h5{
 
 }
 
+/* タブレット（429〜768px）
+   PC用の2カラム構成が窮屈になるので1カラムに落とす */
+@media(max-width: 768px){
+    /* aboutList */
+    .aboutList .box{
+        display: block;
+        width: 85vw;
+    }
+    .about-article{
+        width: 100%;
+        padding: 6% 6% 8% 6%;
+    }
+    .about-article p{
+        min-height: 0;
+    }
+    /*  course-area
+    --------------------------------*/
+    .course-list{
+        display: block;
+    }
+    .course-box{
+        width: 70vw;
+        min-height: 0;
+        margin: 8% auto;
+        padding: 6% 5%;
+    }
+    .course-box5{
+        width: 70vw;
+        margin: 8% auto;
+    }
+    .course-box > p > br{
+        display: none;
+    }
+    .course-area > p{
+        text-align: center;
+        padding: 3% 8% 0 8%;
+    }
+    /*  access-area
+    --------------------------------*/
+    .map-wrap{
+        width: 85%;
+        display: block;
+    }
+    .map > iframe{
+        width: 100%;
+        margin-top: 8%;
+    }
+    .adress{
+        padding: 5% 0 2% 0;
+    }
+    .map-btn{
+        width: 60%;
+        padding: 3% 0;
+    }
+    /*  reservation-area
+    --------------------------------*/
+    .reservation-wrap{
+        width: 85%;
+    }
+    .web-btn,
+    .line-btn{
+        width: 70%;
+    }
+}
 
 @media(max-width: 428px){
     /*  common
@@ -1154,12 +1106,6 @@ h5{
     }
     .nowrap{
         white-space: unset;
-    }
-        /*  header
-    --------------------------------*/
-    /* ホバー時 */
-    .nav-list li a:hover {
-        padding: 3%;
     }
     /*  fv-wrap
     --------------------------------*/
@@ -1289,10 +1235,11 @@ h5{
     }
     .course-box{
         width: 69vw;
-        height: 65vw;
+        min-height: 0;
         border-radius: 30px;
         border: 0.4px solid #707070;
         margin: 10% auto;
+        padding: 8% 5% 10% 5%;
     }
     h3{
         font-size: 18px;
@@ -1307,12 +1254,6 @@ h5{
     .course-box > p > br{
         display: none;
     }
-    .course-box3{
-        height: 73vw;
-    }
-    .course-box4{
-        height: 80vw;
-    }
     .course-box4 > p{
         line-height: 1.7;
     }
@@ -1320,7 +1261,8 @@ h5{
         line-height: 1.3;
     }
     .course-box5{
-        height: 77vw;
+        width: 69vw;
+        margin: 10% auto;
     }
     .course-box5 > p{
         line-height: 1.7;
@@ -1417,78 +1359,6 @@ h5{
     .staff-area > .ttl-wrap{
         margin-top: 15%;
         padding-top: 10%;
-    }
-    .staff-list{
-        width: 85%;
-    }
-    .staff{
-        display: block;
-    }
-    .staff-thumbnail figure{
-        width: 90%;
-        margin: 30% auto 0 auto;
-    }
-    .staff-box p{
-        margin-top: 7%;
-        line-height: 1.4;
-        font-size: 14px;
-        text-align: center;
-    }
-    .staff-box p span{
-        font-size: 10px;
-        
-    }
-    .staff-box1{
-        width: 80%;
-        margin: 0 auto;
-    }
-    .staff-box1 > h4{
-        width: 100%;
-        z-index: 2;
-        font-size: 16px;
-        top: -85vw;
-        left: 0;
-    }
-    .staff-box2{
-        width: 80%;
-        margin: 0 auto;
-    }
-    .staff-box2 > h4{
-        width: 100%;
-        font-weight: bold;
-        font-size: 16px;
-        top: -85vw;
-        left: 0;
-    }
-    .staff-box-nakagami > h4{
-        top: -78vw;
-    }
-    .staff-box-pink h4{
-        background: transparent linear-gradient(52deg, #6CC6CBEA 0%, #E0BDBD 58%, #E2B9B9 100%) 0% 0% no-repeat padding-box;
-    }
-    /* message-wrap */
-    .message-wrap{
-        width: 80%;
-        margin: 17% auto 3% auto;
-    }
-    .message_border{
-        height: 2px;
-    }
-    h5{
-        padding: 8% 4%;
-        font-size: 4vw;
-    }
-    .message p{
-        color: #000;
-        font-size: 2.4vw;
-        padding: 3% 4%;
-        line-height: 1.6;
-        font-weight: lighter;
-    }
-    .message > .experience{
-        font-size: 2.2vw;
-        width: 100%;
-        margin: 5% 0;
     }
     /* greeting（代表あいさつ） */
     .greeting{
