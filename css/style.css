@@ -78,12 +78,12 @@ body{
 }
 .slide1{
     width: 20%;
-    background: url(../img/fv1.png) no-repeat center center;
+    background: url(../img/fv1.jpg) no-repeat center center;
     background-size: cover;
 }
 .slide2{
     width: 150%;
-    background: url(../img/fv2.png) no-repeat 60% 90%;
+    background: url(../img/fv2.jpg) no-repeat 60% 90%;
     background-size: cover;
 }
 .slide3{
@@ -93,12 +93,12 @@ body{
 }
 .slide4{
     width: 50%;
-    background: url(../img/fv4.png) no-repeat center center;
+    background: url(../img/fv4.jpg) no-repeat center center;
     background-size: cover;
 }
 .slide5{
     width: 20%;
-    background: url(../img/fv5.png) no-repeat center center;
+    background: url(../img/fv5.jpg) no-repeat center center;
     background-size: cover;
 }
 
@@ -950,12 +950,12 @@ h3{
     }
     .slide1{
         width: 100%;
-        background: url(../img/fv1.png) no-repeat center center;
+        background: url(../img/fv1.jpg) no-repeat center center;
         background-size: cover;
     }
     .slide2{
         width: 120%;
-        background: url(../img/fv2_sp.png) no-repeat center center;
+        background: url(../img/fv2_sp.jpg) no-repeat center center;
         background-size: cover;
     }
     .slide3{
@@ -965,12 +965,12 @@ h3{
     }
     .slide4{
         width: 50%;
-        background: url(../img/fv4.png) no-repeat center center;
+        background: url(../img/fv4.jpg) no-repeat center center;
         background-size: cover;
     }
     .slide5{
         width: 20%;
-        background: url(../img/fv5.png) no-repeat center center;
+        background: url(../img/fv5.jpg) no-repeat center center;
         background-size: cover;
     }
     /*  fv-wrap
