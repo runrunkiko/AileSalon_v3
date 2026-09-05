@@ -84,6 +84,7 @@ def download_tree(ftp, remote_name, local_path):
             download_tree(ftp, entry, os.path.join(local_path, entry))
         ftp.cwd("..")
     else:
+        os.makedirs(os.path.dirname(local_path), exist_ok=True)
         with open(local_path, "wb") as f:
             ftp.retrbinary(f"RETR {remote_name}", f.write)
 
