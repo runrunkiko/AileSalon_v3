@@ -316,15 +316,28 @@ h1 img{
     margin: 7% auto;
     width: 80vw;
 }
+/* 画像はテキストカードの高さに合わせて表示（はみ出す分はトリミング） */
+.about-thumbnail{
+    position: relative;
+    width: 55%;
+    flex-shrink: 0;
+}
 .about-thumbnail > img{
-    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
 }
 .about-article{
     padding: 7% 6% 4% 6%;
     background-color: #fff;
     box-shadow: 0px 3px 6px #00000029;
-    width: 90vw;
+    width: 45%;
+    /* 文章が短い幅でも画像が潰れないよう最低高さを確保 */
+    min-height: 26vw;
 }
 .box2 > .about-article{
     padding: 4% 6% 4% 6%;
@@ -1033,8 +1046,17 @@ h3{
         display: block;
         width: 85vw;
     }
+    /* 1カラムでは画像を自然な高さに戻す */
+    .about-thumbnail{
+        width: 100%;
+    }
+    .about-thumbnail > img{
+        position: static;
+        height: auto;
+    }
     .about-article{
         width: 100%;
+        min-height: 0;
         padding: 6% 6% 8% 6%;
     }
     .about-article p{
@@ -1141,9 +1163,14 @@ h3{
     .aboutList .box{
         width: 90%;
     }
+    .about-thumbnail{
+        width: 100%;
+    }
     .about-thumbnail > img{
+        position: static;
         display: block;
         width: 100%;
+        height: auto;
         border-radius: 20px 20px 0 0;
     }
     .aboutList{
